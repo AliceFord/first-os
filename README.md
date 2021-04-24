@@ -1,0 +1,1 @@
+The first OS I have ever written, following (at least to start) [the fantastic tutorial here.](https://github.com/cfenollosa/os-tutorial)
