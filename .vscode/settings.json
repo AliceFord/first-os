@@ -2,7 +2,8 @@
     "files.associations": {
         "\"*.html\"": "\"jinja-html\"",
         "ports.h": "c",
-        "screen.h": "c"
+        "screen.h": "c",
+        "isr.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
