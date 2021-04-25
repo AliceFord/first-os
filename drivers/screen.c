@@ -5,7 +5,7 @@
 /* Declaration of private functions */
 int get_cursor_offset();
 void set_cursor_offset(int offset);
-int print_char(char c, int col, int row, char attr);
+int print_char(s8 c, int col, int row, s8 attr);
 int get_offset(int col, int row);
 int get_offset_row(int offset);
 int get_offset_col(int offset);
@@ -18,7 +18,7 @@ int get_offset_col(int offset);
  * Print a message on the specified location
  * If col, row, are negative, we will use the current offset
  */
-void kprint_at(char *message, int col, int row) {
+void kprint_at(s8 *message, int col, int row) {
     /* Set cursor if col/row are negative */
     int offset;
     if (col >= 0 && row >= 0)
@@ -39,7 +39,7 @@ void kprint_at(char *message, int col, int row) {
     }
 }
 
-void kprint(char *message) {
+void kprint(s8 *message) {
     kprint_at(message, -1, -1);
 }
 
@@ -57,8 +57,8 @@ void kprint(char *message) {
  * Returns the offset of the next character
  * Sets the video cursor to the returned offset
  */
-int print_char(char c, int col, int row, char attr) {
-    unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
+int print_char(s8 c, int col, int row, s8 attr) {
+    u8 *vidmem = (u8*) VIDEO_ADDRESS;
     if (!attr) attr = WHITE_ON_BLACK;
 
     /* Error control: print a red 'E' if the coords aren't right */
@@ -87,7 +87,7 @@ int print_char(char c, int col, int row, char attr) {
             memory_copy(get_offset(0, i) + VIDEO_ADDRESS, get_offset(0, i-1) + VIDEO_ADDRESS, MAX_COLS * 2);
         }
 
-        char *last_line = get_offset(0, MAX_ROWS-1) + VIDEO_ADDRESS;
+        s8 *last_line = get_offset(0, MAX_ROWS-1) + VIDEO_ADDRESS;
         for (i = 0; i < MAX_COLS * 2; i++) last_line[i] = 0;
 
         offset -= 2 * MAX_COLS;
@@ -121,7 +121,7 @@ void set_cursor_offset(int offset) {
 void clear_screen() {
     int screen_size = MAX_COLS * MAX_ROWS;
     int i;
-    char *screen = VIDEO_ADDRESS;
+    s8 *screen = VIDEO_ADDRESS;
 
     for (i = 0; i < screen_size; i++) {
         screen[i*2] = ' ';
